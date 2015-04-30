@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta name="format-detection" content="telephone=no" />
+<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+<link rel="stylesheet" type="text/css" href="css/index.css" />
+<title>Hello World</title>
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/index.js"></script>
+<script type="text/javascript">
+app.initialize();
+</script>
+<script type="text/javascript" charset="utf-8">
+var pictureSource; // Origen de la imagen
+var destinationType; // Formato del valor retornado
+document.addEventListener("deviceready",onDeviceReady,false);
+
+function onDeviceReady() {
+pictureSource=navigator.camera.PictureSourceType;
+destinationType=navigator.camera.DestinationType;
+}
+
+function capturePhoto() {
+navigator.camera.getPicture(onPhotoURISuccess, onFail,{
+quality : 50,
+destinationType : Camera.DestinationType.FILE_URI,
+sourceType : Camera.PictureSourceType.CAMERA,
+popoverOptions: CameraPopoverOptions,
+saveToPhotoAlbum: true });
+}
+
+function onPhotoURISuccess(imageURI) {
+document.getElementById("smallImage").src = imageURI;
+}
+function onFail(message) {
+alert("Error debido a: " + message);
+}
+</script>
+</head>
+<body>
+<button onclick="capturePhoto();">Capturar Foto</button> <br>
+<div id="smallImage" style="top:100px;"></div>
+</body>
+</html>
